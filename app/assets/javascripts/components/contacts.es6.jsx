@@ -16,6 +16,15 @@ class Contacts extends React.Component {
     this.inputChange = this.inputChange.bind(this)
   }
 
+  componentDidMount() {
+    this.setState({
+      inputFirstName: "",
+      inputLastName: "",
+      inputEmail: "",
+      inputPhoneNumber: "",
+    })
+  }
+
   inputChange(e) {
     const field = e.target
     this.setState({["input" + field.name.charAt(0).toUpperCase() + field.name.slice(1)]: field.value})
