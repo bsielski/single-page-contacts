@@ -4,7 +4,7 @@ class Contacts extends React.Component {
     super(props)
     this.state = {
       contacts: this.props.contacts,
-      size: this.props.size,
+      size: this.props.contacts.length,
       prefix: this.props.prefix,
       inputFirstName: "",
       inputLastName: "",
@@ -29,6 +29,7 @@ class Contacts extends React.Component {
         console.log("SUCCESS at " + new Date())
         this.setState({
                         contacts: contacts,
+                        size: contacts.length,
                       })
       },
       error: (errors) => {
@@ -55,7 +56,8 @@ class Contacts extends React.Component {
                         inputFirstName: "",
                         inputLastName: "",
                         inputEmail: "",
-                        inputPhoneNumber: ""
+                        inputPhoneNumber: "",
+                        size: contacts.length,
                       })
       },
       error: (errors) => {

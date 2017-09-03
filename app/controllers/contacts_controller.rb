@@ -5,7 +5,6 @@ class ContactsController < ApplicationController
     puts
     @contacts = Contact.all.reverse
     @prefix = "There are"
-    @size = @contacts.size
   end
 
   def show
