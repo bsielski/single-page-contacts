@@ -1,3 +1,51 @@
 // Place all the styles related to the Contacts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+  font-size: 12px
+}
+
+.contact_container {
+  background-color: #f2e4bb;
+  display: flex;
+  flex-flow: row-reverse wrap;
+  margin: 0;
+  padding: 2px;
+}
+
+.contact_section {
+  border: 1px solid #a67d65; /* brown        */
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  padding: 10px;
+  margin: 10px;
+  background-color: #f2e4bb; /* yellow       */
+  flex: 1 0 250px;
+}
+.contact_section--input {
+  flex: 0 0 250px;
+}
+
+.contact_list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    margin: 0 0 10px 0;
+    border: 1px solid #a67d65; // brown
+}
+
+.contact_item {
+  border: 1px solid #a67d65; /* brown        */
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 0;
+  margin: 2px 2px;
+  flex: 0 1 200px;
+  font-family: 'SeshatRegular', serif;
+}

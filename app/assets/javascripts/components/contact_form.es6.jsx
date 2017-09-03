@@ -1,0 +1,41 @@
+class ContactForm extends React.Component {
+
+  token() {
+    //return document.querySelector("meta[name='csrf-token']").attr("content")
+  }
+
+  render () {
+    return (
+      <div>
+        <h1>Add a new contact</h1>
+        <p>token is {this.token()}</p>
+        <form onSubmit={this.props.handleSubmit}>
+          <div>
+            <label>First name</label><br />
+            <input name="firstName" type="text" placeholder='First name' value={this.props.firstName} onChange={this.props.handleChange}/>
+          </div>
+
+          <div>
+            <label>Last name</label><br />
+            <input name="lastName" type="text" placeholder='Last name' value={this.props.lastName} onChange={this.props.handleChange}/>
+          </div>
+
+          <div>
+            <label>Email</label><br />
+            <input name="email" type="text" placeholder='Email'value={this.props.email} onChange={this.props.handleChange}/>
+          </div>
+
+          <div>
+            <label>Phone number</label><br />
+            <input name="phoneNumber" type="text" placeholder='Phone number' value={this.props.phoneNumber} onChange={this.props.handleChange}/>
+          </div>
+
+          <div>
+            <input type="submit" placeholder='Enter name of skill' />
+          </div>
+        </form>
+
+      </div>
+    );
+  }
+}
