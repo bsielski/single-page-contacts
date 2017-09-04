@@ -4,6 +4,7 @@ class Contacts extends React.Component {
     super(props)
     this.state = {
       contacts: this.props.contacts,
+      errors: [],
       size: this.props.contacts.length,
       prefix: this.props.prefix,
       inputFirstName: "",
@@ -43,6 +44,7 @@ class Contacts extends React.Component {
       },
       error: (errors) => {
         console.log("ERROR at " + new Date())
+        console.log("wtf: " + errors + new Date())
       }
     })
     e.preventDefault()
@@ -69,8 +71,12 @@ class Contacts extends React.Component {
                         size: contacts.length,
                       })
       },
-      error: (errors) => {
+      error: (response) => {
         console.log("ERROR at " + new Date())
+        console.log(response)
+        this.setState({
+                        errors: response.errors,
+                      })
       }
     })
     e.preventDefault()
@@ -81,7 +87,7 @@ class Contacts extends React.Component {
       <div className="contact_container">
         <div className="contact_section contact_section--input">
           {/*<ContactSearch number={this.state.size} prefix={this.state.prefix} />*/}
-          <ContactForm handleSubmit={this.addContact} handleChange={this.inputChange}
+          <ContactForm errors={this.state.errors} handleSubmit={this.addContact} handleChange={this.inputChange}
             firstName={this.state.inputFirstName} lastName={this.state.inputLastName}
             email={this.state.inputEmail} phoneNumber={this.state.inputPhoneNumber}/>
         </div>

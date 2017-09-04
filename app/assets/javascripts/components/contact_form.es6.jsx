@@ -5,6 +5,7 @@ class ContactForm extends React.Component {
   }
 
   render () {
+    const errors = this.props.errors.map((error, index) => <p key={index}>{error}</p>)
     return (
       <div>
         <h1>Add a new contact</h1>
@@ -34,7 +35,7 @@ class ContactForm extends React.Component {
             <input type="submit" placeholder='Enter name of skill' />
           </div>
         </form>
-
+        {errors}
       </div>
     );
   }

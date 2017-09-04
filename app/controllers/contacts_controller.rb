@@ -22,7 +22,10 @@ class ContactsController < ApplicationController
     if @contact.save
       render json: Contact.all.reverse
     else
-      render json: @contact.errors, status: 422
+      puts
+      puts @contact.errors.full_messages
+      puts
+      render json: { errors: @contact.errors.full_messages }, status: 422
     end
   end
 
