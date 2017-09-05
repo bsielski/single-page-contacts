@@ -27,10 +27,12 @@ RSpec.describe ContactsController, type: :controller do
   end
 
   describe "GET #index with searching phrase" do
-    it "puts finded contacts into variable" do
-      get :index, search: "bob"
-      expect(assigns(:contacts)).to contain_exactly(@c2, @c3, @c10)
+
+    it "returns http success" do
+      get :index, {params: {search: "bob"}}
+      expect(response).to have_http_status(:success)
     end
+
   end
 
 
