@@ -32,7 +32,7 @@ class ContactForm extends React.Component {
           </div>
 
           <div>
-            <input type="submit" placeholder='Enter name of skill' />
+            <input type="submit" value="Add contact" />
           </div>
         </form>
         {errors}
