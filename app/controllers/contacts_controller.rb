@@ -1,30 +1,18 @@
 class ContactsController < ApplicationController
   def index
-    puts
-    puts params.inspect
-    puts
     @contacts = Contact.all.reverse
     @prefix = "There are"
   end
 
   def show
-    puts
-    puts params.inspect
-    puts
      @contact = Contact.find(params[:id])
   end
 
   def create
-    puts
-    puts params.inspect
-    puts
     @contact = Contact.new(contact_params)
     if @contact.save
       render json: Contact.all.reverse
     else
-      puts
-      puts @contact.errors.full_messages
-      puts
       render json: { errors: @contact.errors.full_messages }, status: 422
     end
   end
