@@ -1,12 +1,10 @@
-class ContactsHeader extends React.Component {
+class ContactSearch extends React.Component {
   render () {
     return (
-      <h1 className="contacts_header">{this.props.prefix} {this.props.number} contacts</h1>
+      <div className="contact_searcgh">
+        <input type="search"/>
+        <input type="submit" value="Search"/>
+      </div>
     );
   }
 }
-
-ContactsHeader.propTypes = {
-  prefix: React.PropTypes.string,
-  number: React.PropTypes.number
-};
