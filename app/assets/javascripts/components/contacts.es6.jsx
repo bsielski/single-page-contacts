@@ -86,7 +86,7 @@ class Contacts extends React.Component {
     return(
       <div className="contact_container">
         <div className="contact_section contact_section--input">
-          {/*<ContactSearch number={this.state.size} prefix={this.state.prefix} />*/}
+          <ContactSearch />
           <ContactForm errors={this.state.errors} handleSubmit={this.addContact} handleChange={this.inputChange}
             firstName={this.state.inputFirstName} lastName={this.state.inputLastName}
             email={this.state.inputEmail} phoneNumber={this.state.inputPhoneNumber}/>
