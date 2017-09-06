@@ -1,6 +1,10 @@
 class ContactsController < ApplicationController
   def index
-    @contacts = Contact.all.reverse
+    if params[:search]
+      @contacts = Contact.search(params[:search])
+    else
+      @contacts = Contact.all.reverse
+    end
     @prefix = "There are"
   end
 
