@@ -11,10 +11,13 @@ class Contacts extends React.Component {
       inputLastName: "",
       inputEmail: "",
       inputPhoneNumber: "",
+      inputSearch: "",
     }
     this.addContact = this.addContact.bind(this)
     this.deleteContact = this.deleteContact.bind(this)
     this.inputChange = this.inputChange.bind(this)
+    this.searchChange = this.searchChange.bind(this)
+    this.search = this.search.bind(this)
   }
 
   componentDidMount() {
@@ -23,7 +26,14 @@ class Contacts extends React.Component {
       inputLastName: "",
       inputEmail: "",
       inputPhoneNumber: "",
+      inputSearch: "",
     })
+  }
+
+  searchChange(e) {
+    const field = e.target
+    console.log("SEARCH CHANGE to: " + this.state.inputSearch + " " + new Date())
+    this.setState({inputSearch: field.value})
   }
 
   inputChange(e) {
@@ -82,11 +92,38 @@ class Contacts extends React.Component {
     e.preventDefault()
   }
 
+  search(e) {
+    console.log("Search at " + new Date())
+
+    Rails.ajax({
+      type: "GET",
+      url: "/contacts/",
+      data: 'search=' + this.state.inputSearch,
+      success: (contacts) => {
+        console.log("SUCCESS at " + new Date())
+        console.log(contacts)
+        this.setState({
+                        contacts: contacts,
+                        size: contacts.length,
+                      })
+      },
+      error: (response) => {
+        console.log("ERROR at " + new Date())
+        console.log(response)
+        this.setState({
+                        errors: response.errors,
+                      })
+      }
+    })
+    e.preventDefault()
+  }
+
+
   render() {
     return(
       <div className="contact_container">
         <div className="contact_section contact_section--input">
-          <ContactSearch />
+          <ContactSearch handleSubmit={this.search} handleChange={this.searchChange} phrase={this.state.inputSearch}/>
           <ContactForm errors={this.state.errors} handleSubmit={this.addContact} handleChange={this.inputChange}
             firstName={this.state.inputFirstName} lastName={this.state.inputLastName}
             email={this.state.inputEmail} phoneNumber={this.state.inputPhoneNumber}/>
