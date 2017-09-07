@@ -13,3 +13,5 @@ Features:
 9. Models tested with Shoulda Matchers.
 10. Views tested with Capybara.
 11. Readable and clean commit history (I hope).
+
+Deployed site: http://single-page-contacts.testingmagic.ovh/
