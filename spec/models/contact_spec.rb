@@ -30,6 +30,10 @@ RSpec.describe Contact, type: :model do
       expect(Contact.search("bob")).to contain_exactly(@c2, @c3, @c10)
     end
 
+    it "is case insensitive" do
+      expect(Contact.search("Pl")).to contain_exactly(@c7, @c8, @c9)
+    end
+
   end
 
 end
