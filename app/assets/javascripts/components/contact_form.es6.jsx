@@ -1,15 +1,10 @@
 class ContactForm extends React.Component {
 
-  token() {
-    //return document.querySelector("meta[name='csrf-token']").attr("content")
-  }
-
   render () {
     const errors = this.props.errors.map((error, index) => <p key={index}>{error}</p>)
     return (
       <div>
         <h1>Add a new contact</h1>
-        <p>token is {this.token()}</p>
         <form onSubmit={this.props.handleSubmit}>
           <div>
             <label>First name</label><br />
