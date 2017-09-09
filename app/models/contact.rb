@@ -6,10 +6,10 @@ class Contact < ApplicationRecord
   validates :phone_number, presence: true
 
   def self.search(phrase)
-    phrase = "%" + phrase + "%"
-    self.where("first_name LIKE ?", phrase)
-    .or(self.where("last_name LIKE ?", phrase))
-    .or(self.where("email LIKE ?", phrase))
-    .or(self.where("phone_number LIKE ?", phrase))
+    phrase = "%" + phrase.downcase + "%"
+    self.where("LOWER(first_name) LIKE ?", phrase)
+    .or(self.where("LOWER(last_name) LIKE ?", phrase))
+    .or(self.where("LOWER(email) LIKE ?", phrase))
+    .or(self.where("LOWER(phone_number) LIKE ?", phrase))
   end
 end
