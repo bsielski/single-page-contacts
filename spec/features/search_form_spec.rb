@@ -23,7 +23,7 @@ RSpec.describe "Searching by URI", :type => :feature do
     visit "/"
     fill_in "search_input", with: "bob"
     click_button "Search"
-    expect(page).to have_content "3 contacts"
+    expect(page).to have_content "Found 3 contacts"
   end
 
 end

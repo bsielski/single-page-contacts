@@ -99,12 +99,13 @@ class Contacts extends React.Component {
       type: "GET",
       url: "/contacts/",
       data: 'search=' + this.state.inputSearch,
-      success: (contacts) => {
+      success: (response) => {
         console.log("SUCCESS at " + new Date())
-        console.log(contacts)
+        console.log(response.contacts)
         this.setState({
-                        contacts: contacts,
-                        size: contacts.length,
+                        contacts: response.contacts,
+                        prefix: response.prefix,
+                        size: response.contacts.length,
                       })
       },
       error: (response) => {

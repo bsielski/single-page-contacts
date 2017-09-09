@@ -2,11 +2,12 @@ class ContactsController < ApplicationController
   def index
     if params[:search]
       @contacts = Contact.search(params[:search])
-      render json: @contacts.reverse
+      @prefix = "Found "
+      render json: {contacts: @contacts.reverse, prefix: @prefix}
     else
       @contacts = Contact.all.reverse
+      @prefix = "There are"
     end
-    @prefix = "There are"
 
   end
 
