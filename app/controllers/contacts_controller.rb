@@ -3,10 +3,13 @@ class ContactsController < ApplicationController
     if params[:search]
       @contacts = Contact.search(params[:search])
       @prefix = "Found "
-      render json: {contacts: @contacts.reverse, prefix: @prefix}
     else
       @contacts = Contact.all.reverse
       @prefix = "There are"
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: {contacts: @contacts.reverse, prefix: @prefix} }
     end
 
   end

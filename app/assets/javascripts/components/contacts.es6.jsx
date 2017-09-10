@@ -30,6 +30,35 @@ class Contacts extends React.Component {
     })
   }
 
+  getContacts() {
+    let data = ''
+    if (this.state.inputSearch) {
+      data = 'search=' + this.state.inputSearch
+    }
+    console.log("DATA: " + data)
+    Rails.ajax({
+      type: "GET",
+      url: "/contacts.json/",
+      data: data,
+      success: (response) => {
+        console.log("SUCCESS at " + new Date())
+        console.log(response.contacts)
+        this.setState({
+                        contacts: response.contacts,
+                        prefix: response.prefix,
+                        size: response.contacts.length,
+                      })
+      },
+      error: (response) => {
+        console.log("ERROR at " + new Date())
+        console.log(response)
+        this.setState({
+                        errors: response.errors,
+                      })
+      }
+    })
+  }
+
   searchChange(e) {
     const field = e.target
     console.log("SEARCH CHANGE to: " + this.state.inputSearch + " " + new Date())
@@ -47,10 +76,7 @@ class Contacts extends React.Component {
       url: "/contacts/" + e.target.dataset.id,
       success: (contacts) => {
         console.log("SUCCESS at " + new Date())
-        this.setState({
-                        contacts: contacts,
-                        size: contacts.length,
-                      })
+        this.getContacts()
       },
       error: (errors) => {
         console.log("ERROR at " + new Date())
@@ -94,28 +120,7 @@ class Contacts extends React.Component {
 
   search(e) {
     console.log("Search at " + new Date())
-
-    Rails.ajax({
-      type: "GET",
-      url: "/contacts/",
-      data: 'search=' + this.state.inputSearch,
-      success: (response) => {
-        console.log("SUCCESS at " + new Date())
-        console.log(response.contacts)
-        this.setState({
-                        contacts: response.contacts,
-                        prefix: response.prefix,
-                        size: response.contacts.length,
-                      })
-      },
-      error: (response) => {
-        console.log("ERROR at " + new Date())
-        console.log(response)
-        this.setState({
-                        errors: response.errors,
-                      })
-      }
-    })
+    this.getContacts()
     e.preventDefault()
   }
 
