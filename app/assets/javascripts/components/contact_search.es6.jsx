@@ -1,4 +1,5 @@
 class ContactSearch extends React.Component {
+
   render () {
     return (
       <div>
