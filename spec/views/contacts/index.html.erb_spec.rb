@@ -16,4 +16,15 @@ RSpec.describe "contacts/index.html.erb", type: :view do
     expect(rendered).to have_css("input[type=submit][value='Search']")
   end
 
+  it "displays the clear search button with proper name" do
+    render
+    expect(rendered).to have_css("input[type=submit][value='Clear filter']")
+  end
+
+  it "displays the filter headerwith proper name" do
+    render
+    expect(rendered).to have_css("h1", text: "Filter contacts")
+  end
+
+
 end
