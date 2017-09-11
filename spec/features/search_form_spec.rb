@@ -19,7 +19,7 @@ RSpec.describe "Searching by form", :type => :feature do
     Contact.destroy_all
   end
 
-  it "displays how many contacts found", js: true do
+  it "is searching during typinng", js: true do
     visit "/"
     fill_in "search_input", with: "b"
     expect(page).to have_content "Found 4 contacts"
@@ -34,17 +34,15 @@ RSpec.describe "Searching by form", :type => :feature do
   it "displays how many contacts found even after deleting", js: true do
     visit "/"
     fill_in "search_input", with: "bob"
-    click_button "Search"
     expect(page).to have_content "Found 3 contacts"
     id = @c3.id
     find("button[data-id=\"#{id}\"]").click
     expect(page).to have_content "Found 2 contacts"
   end
 
-  it "is searching during typinng", js: true do
+  it "displays how many contacts found", js: true do
     visit "/"
     fill_in "search_input", with: "bob"
-    click_button "Search"
     expect(page).to have_content "Found 3 contacts"
   end
 
