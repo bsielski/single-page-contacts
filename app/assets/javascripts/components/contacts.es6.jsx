@@ -105,11 +105,13 @@ class Contacts extends React.Component {
                         inputEmail: "",
                         inputPhoneNumber: "",
                         size: contacts.length,
+                        errors: [],
+
                       })
       },
       error: (response) => {
         console.log("ERROR at " + new Date())
-        console.log(response)
+        console.log(response.errors)
         this.setState({
                         errors: response.errors,
                       })

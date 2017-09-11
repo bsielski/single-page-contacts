@@ -37,12 +37,12 @@ RSpec.describe "Displaying errors", :type => :feature do
     expect(page).to_not have_content "Phone number can't be blank"
   end
 
-  xit "displays errors for multiple tries", js: true do
+  it "displays errors for multiple tries", js: true do
     visit '/'
     fill_in "First name", with: ""
     fill_in "Last name", with: "Something"
     fill_in "Email", with: "some@mail.com"
-    fill_in "Phone number", with: "123 423 123"
+    fill_in "Phone number", with: "123 423 111"
     click_button "Add contact"
 
     expect(page).to have_content "First name can't be blank"
@@ -51,11 +51,13 @@ RSpec.describe "Displaying errors", :type => :feature do
     expect(page).to_not have_content "Phone number can't be blank"
 
     fill_in "First name", with: "SomeNotFakeName"
-    fill_in "Last name", with: ""
-    fill_in "Email", with: ""
-    fill_in "Phone number", with: "123 423 123"
+    find("input[name=lastName]").send_keys([:control, "a"])
+    find("input[name=lastName]").send_keys(:backspace) # some bug force me to do this separatelly
+    find("input[name=email]").send_keys([:control, "a"])
+    find("input[name=email]").send_keys(:backspace)
+    fill_in "Phone number", with: "123 423 222"
     click_button "Add contact"
-
+    sleep 1
     expect(page).to have_content "Last name can't be blank"
     expect(page).to have_content "Email can't be blank"
     expect(page).to_not have_content "First name can't be blank"
@@ -64,6 +66,30 @@ RSpec.describe "Displaying errors", :type => :feature do
 
   it "doesn't display errors when everything is OK", js: true do
     visit '/'
+    fill_in "First name", with: "Somename"
+    fill_in "Last name", with: "Something"
+    fill_in "Email", with: "some@mail.com"
+    fill_in "Phone number", with: "123 423 123"
+    click_button "Add contact"
+    expect(page).to_not have_content "First name can't be blank"
+    expect(page).to_not have_content "Last name can't be blank"
+    expect(page).to_not have_content "Email can't be blank"
+    expect(page).to_not have_content "Phone number can't be blank"
+  end
+
+  it "removes errors errors when everything is OK", js: true do
+    visit '/'
+
+    fill_in "First name", with: "SomeNotFakeName"
+    fill_in "Last name", with: ""
+    fill_in "Email", with: ""
+    fill_in "Phone number", with: "123 423 123"
+    click_button "Add contact"
+    expect(page).to have_content "Last name can't be blank"
+    expect(page).to have_content "Email can't be blank"
+    expect(page).to_not have_content "First name can't be blank"
+    expect(page).to_not have_content "Phone number can't be blank"
+
     fill_in "First name", with: "Somename"
     fill_in "Last name", with: "Something"
     fill_in "Email", with: "some@mail.com"
