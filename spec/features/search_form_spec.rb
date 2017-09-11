@@ -46,5 +46,14 @@ RSpec.describe "Searching by form", :type => :feature do
     expect(page).to have_content "Found 3 contacts"
   end
 
+  it "can be cleared with clear filter button", js: true do
+    visit "/"
+    fill_in "search_input", with: "bob"
+    expect(page).to have_content "Found 3 contacts"
+    click_button "Clear filter"
+    expect(page).to have_content "There are 10 contacts"
+    expect(find_field('search_input').value).to eq ""
+  end
+
 
 end

@@ -17,7 +17,7 @@ class Contacts extends React.Component {
     this.deleteContact = this.deleteContact.bind(this)
     this.inputChange = this.inputChange.bind(this)
     this.searchChange = this.searchChange.bind(this)
-    this.search = this.search.bind(this)
+    this.searchClear = this.searchClear.bind(this)
   }
 
   componentDidMount() {
@@ -30,10 +30,10 @@ class Contacts extends React.Component {
     })
   }
 
-  getContacts() {
+  getContacts(phrase) {
     let data = ''
-    if (this.state.inputSearch) {
-      data = 'search=' + this.state.inputSearch
+    if (phrase) {
+      data = 'search=' + phrase
     }
     console.log("DATA: " + data)
     Rails.ajax({
@@ -64,7 +64,7 @@ class Contacts extends React.Component {
     console.log("FIELD VALUE: " + field.value + " " + new Date())
     this.setState({inputSearch: field.value}, () => {
       console.log("STATE INPUT SEARCH: " + this.state.inputSearch + " " + new Date())
-      this.getContacts()
+      this.getContacts(this.state.inputSearch)
     })
   }
 
@@ -79,7 +79,7 @@ class Contacts extends React.Component {
       url: "/contacts/" + e.target.dataset.id,
       success: (contacts) => {
         console.log("SUCCESS at " + new Date())
-        this.getContacts()
+        this.getContacts(this.state.inputSearch)
       },
       error: (errors) => {
         console.log("ERROR at " + new Date())
@@ -123,9 +123,11 @@ class Contacts extends React.Component {
     e.preventDefault()
   }
 
-  search(e) {
-    console.log("Search at " + new Date())
-    this.getContacts()
+  searchClear(e) {
+    this.setState({inputSearch: ""}, () => {
+      console.log("CLEARED SEARCH: " + this.state.inputSearch + " " + new Date())
+      this.getContacts(this.state.inputSearch)
+    })
     e.preventDefault()
   }
 
@@ -134,7 +136,7 @@ class Contacts extends React.Component {
     return(
       <div className="contact_container">
         <div className="contact_section contact_section--input">
-          <ContactSearch handleSubmit={this.search} handleChange={this.searchChange} phrase={this.state.inputSearch}/>
+          <ContactSearch handleSubmit={this.searchClear} handleChange={this.searchChange} phrase={this.state.inputSearch}/>
           <ContactForm errors={this.state.errors} handleSubmit={this.addContact} handleChange={this.inputChange}
             firstName={this.state.inputFirstName} lastName={this.state.inputLastName}
             email={this.state.inputEmail} phoneNumber={this.state.inputPhoneNumber}/>
