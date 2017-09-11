@@ -61,8 +61,11 @@ class Contacts extends React.Component {
 
   searchChange(e) {
     const field = e.target
-    console.log("SEARCH CHANGE to: " + this.state.inputSearch + " " + new Date())
-    this.setState({inputSearch: field.value})
+    console.log("FIELD VALUE: " + field.value + " " + new Date())
+    this.setState({inputSearch: field.value}, () => {
+      console.log("STATE INPUT SEARCH: " + this.state.inputSearch + " " + new Date())
+      this.getContacts()
+    })
   }
 
   inputChange(e) {
