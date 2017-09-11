@@ -9,7 +9,7 @@ class ContactsController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.json { render json: {contacts: @contacts.reverse, prefix: @prefix} }
+      format.json { render json: {contacts: @contacts, prefix: @prefix} }
     end
 
   end
