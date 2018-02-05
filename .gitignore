@@ -36,3 +36,5 @@
 
 # rbenv
 #.ruby-version
+
+.env
