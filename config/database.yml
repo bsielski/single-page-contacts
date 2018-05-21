@@ -20,4 +20,4 @@ test:
 production:
   <<: *default
   database: postgres_production
-password: postgres_production
+  password: postgres_production

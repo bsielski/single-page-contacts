@@ -1,19 +1,60 @@
-version: "2"
+version: "3"
 services:
   db:
     image: postgres:10.1
     volumes:
-      - postgres-data:/var/lib/postgresql/data
-  app:
-    build: .
-    ports:
-    - "3000:3000"
+      - postgres-single-page-contacts-data:/var/lib/postgresql/data
+  create_db:
+    build:
+      context: .
+      dockerfile: ./docker/build/Dockerfile
     volumes:
-    - .:/usr/src/app
-    env_file: .env
-    stdin_open: true
-    tty: true
+      - .:/usr/src/app
     depends_on:
       - db
+    command: ["bundle", "exec", "rake", "db:create"]
+  migrate:
+    build:
+      context: .
+      dockerfile: ./docker/build/Dockerfile
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - db
+    command: ["bundle", "exec", "rake", "db:migrate"]
+  rails_server:
+    build:
+      context: .
+      dockerfile: ./docker/build/Dockerfile
+    expose:
+      - 3000
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - db
+    command: ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+  proxy:
+    build:
+      context: .
+      dockerfile: ./docker/proxy/Dockerfile
+   # ports:
+    #  - 80:80
+    expose:
+      - 80
+    environment:
+      VIRTUAL_HOST: spc.testingmagic.ovh
+
+#  web:
+#    image: nginx
+#    expose:
+#      - 80
+#    environment:
+#      VIRTUAL_HOST: spc.testingmagic.ovh
+#    volumes:
+#      - .:/usr/share/nginx/html
+networks:
+  default:
+    external:
+      name: nginx-proxy
 volumes:
-  postgres-data:
+  postgres-single-page-contacts-data:
