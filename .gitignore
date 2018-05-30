@@ -41,4 +41,4 @@
 .env
 .env-app
 .env-webserver
-.nginx.conf
+nginx.conf
