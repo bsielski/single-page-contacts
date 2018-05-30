@@ -27,6 +27,7 @@
 
 # Ignore Emacs garbage
 *~
+.*~
 \#*.*#
 .#*.*
 
@@ -38,3 +39,6 @@
 #.ruby-version
 
 .env
+.env-app
+.env-webserver
+.nginx.conf
